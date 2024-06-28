@@ -7,15 +7,19 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -37,7 +41,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
 
                 ) {
-                    Infoset()
+                    Card()
                 }
             }
         }
@@ -50,7 +54,7 @@ fun Info (modifier: Modifier = Modifier, name: String, email: String, number: St
     val phone = painterResource(R.drawable.smartphone_24dp)
     Column (modifier = modifier,
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.Start) {
+        horizontalAlignment = Alignment.CenterHorizontally) {
         Row (
             modifier = Modifier.padding(bottom = 16.dp),
             horizontalArrangement = Arrangement.SpaceEvenly,
@@ -63,6 +67,7 @@ fun Info (modifier: Modifier = Modifier, name: String, email: String, number: St
             )
         Text (
             text = name,
+            color = Color(0xFFFFFFFF),
             textAlign = TextAlign.Left,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(start = 5.dp)
@@ -78,6 +83,7 @@ fun Info (modifier: Modifier = Modifier, name: String, email: String, number: St
                 contentDescription = null)
             Text(
                 text = email,
+                color = Color(0xFFFFFFFF),
                 textAlign = TextAlign.Left,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(start = 5.dp)
@@ -93,6 +99,7 @@ fun Info (modifier: Modifier = Modifier, name: String, email: String, number: St
                 contentDescription = null)
             Text(
                 text = number,
+                color = Color(0xFFFFFFFF),
                 textAlign = TextAlign.Left,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(start = 5.dp)
@@ -100,35 +107,59 @@ fun Info (modifier: Modifier = Modifier, name: String, email: String, number: St
         }
     }
 }
+
+
 @Composable
 fun Infoset (modifier: Modifier = Modifier) {
-    val me = painterResource(R.drawable.card)
-        Column(
-            modifier = modifier,
+    val blue = painterResource(R.drawable.blue)
+    val logo = painterResource(R.drawable.android_logo)
+    Column(modifier = modifier,
+    horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center) {
+        Image(
+            painter = blue,
+            contentDescription = null,
+            modifier = Modifier.padding(bottom = 20.dp),
+        )
 
-
-        ) {
-            Image(
-                painter = me,
-                contentDescription = null,
-                modifier = Modifier.padding(bottom = 20.dp),
-                Alignment.Center
-            )
-
-            Info(
-                modifier = modifier.padding(8.dp),
-                name = stringResource(R.string.Name),
-                email = stringResource(R.string.Email),
-                number = stringResource(R.string.Number)
-            )
-        }
+        Info(
+            modifier = modifier.padding(8.dp),
+            name = stringResource(R.string.Name),
+            email = stringResource(R.string.Email),
+            number = stringResource(R.string.Number)
+        )
+        Image(
+            painter = logo,
+            contentDescription = null,
+            modifier = modifier.size(80.dp),
+        )
     }
+}
+@Composable
+fun Card (modifier: Modifier = Modifier ){
+    val back = painterResource(R.drawable.stockcake_geometric_artwork_design_1719562578)
+Box(modifier = modifier)
+    ContentScale.Fit
+Image(
+    painter = back,
+    contentDescription = null,
+    modifier = Modifier.fillMaxSize(),
+    contentScale = ContentScale.Crop
+)
+Infoset()
+}
+
 
 
 @Preview(showBackground = true)
 @Composable
 fun BuisnessCardPreview() {
     BuisnessCardTheme {
-        Infoset()
+        Info(
+            name = stringResource(R.string.Name),
+            email = stringResource(R.string.Email),
+            number = stringResource(R.string.Number)
+        )
+
     }
 }
